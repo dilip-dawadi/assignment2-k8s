@@ -22,9 +22,6 @@ into a locally simulated single-node Kubernetes cluster using kind.
 5. Apply Deployments
 6. Apply Services
 
-Example:
-kubectl apply -f manifests/
-
 ## Author
 
 Dilip Dawadi
