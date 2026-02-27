@@ -4,12 +4,12 @@ metadata:
   name: web-svc
   namespace: web-ns
   labels:
-    app: web
+    app: employees
     tier: frontend
 spec:
   type: NodePort
   selector:
-    app: web
+    app: employees
     tier: frontend
   ports:
     - name: http

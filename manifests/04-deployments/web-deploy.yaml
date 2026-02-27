@@ -4,13 +4,13 @@ metadata:
   name: web-deploy
   namespace: web-ns
   labels:
-    app: web
+    app: employees
     tier: frontend
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: web
+      app: employees
       tier: frontend
   strategy:
     type: RollingUpdate
@@ -20,12 +20,12 @@ spec:
   template:
     metadata:
       labels:
-        app: web
+        app: employees
         tier: frontend
     spec:
       containers:
         - name: web
-          image: nginx:latest
+          image: nginx:1.24
           ports:
             - containerPort: 80
           resources:
