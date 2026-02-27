@@ -78,36 +78,49 @@ kubectl get secret ecr-secret -n mysql-ns
 
 ---
 
-## Step 5 — Deploy Pods
+## Step 5 — Deploy Services FIRST (before pods)
+
+> **Important:** The web app connects to `mysql-svc.mysql-ns.svc.cluster.local` at startup.
+> If the Service doesn't exist yet, DNS won't resolve and the web pod will crash immediately.
+> Always create Services before Pods.
+
+```bash
+kubectl apply -f 05-services/
+kubectl get services -A
+```
+
+---
+
+## Step 6 — Deploy Pods
 
 ```bash
 kubectl apply -f 02-pods/
 kubectl get pods -A -w
-# Wait until mysql-pod and web-pod are both Running, then Ctrl+C
+# Wait until BOTH mysql-pod and web-pod show Running, then Ctrl+C
 ```
 
-Test pods using port-forward (as required by assignment appendix):
+Test pods using port-forward (required by assignment appendix):
 
 ```bash
-# Terminal 1 — forward web pod
+# Forward web pod port in background
 kubectl port-forward pod/web-pod 8080:8080 -n web-ns &
 
 # Hit the app
 curl localhost:8080
 
-# Check logs to confirm the request was received
+# Check logs to confirm the request was received in the log
 kubectl logs web-pod -n web-ns
 
-# Kill port-forward background job when done
+# Kill the port-forward background job
 kill %1
 ```
 
-> **Report Q2a:** Yes, both apps can listen on the same port (e.g. 8080 and 3306) inside
-> their containers because each pod has its own network namespace — ports are isolated.
+> **Report Q2a:** Yes, both apps can listen on the same port (e.g. 8080) inside their
+> containers because each pod has its own isolated network namespace — there is no conflict.
 
 ---
 
-## Step 6 — Deploy ReplicaSets
+## Step 7 — Deploy ReplicaSets
 
 ```bash
 kubectl apply -f 03-replicasets/
@@ -117,7 +130,7 @@ kubectl get pods -A -w
 kubectl get replicasets -A
 ```
 
-> **Report Q3:** The pod created in Step 5 (mysql-pod / web-pod) shares the same labels
+> **Report Q3:** The pod created in Step 6 (mysql-pod / web-pod) shares the same labels
 > (`app: mysql` / `app: employees`) as the RS selector. Kubernetes will adopt it — the pod
 > becomes one of the RS-managed replicas (RS will only create 2 new pods to reach 3 total).
 
