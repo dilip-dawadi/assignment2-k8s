@@ -136,7 +136,7 @@ kubectl get replicasets -A
 
 ---
 
-## Step 7 — Deploy Deployments
+## Step 8 — Deploy Deployments
 
 ```bash
 kubectl apply -f 04-deployments/
@@ -149,19 +149,9 @@ kubectl get replicasets -A
 kubectl get deployments -A
 ```
 
-> **Report Q4:** The RS created in Step 6 is adopted by the Deployment — it becomes the
+> **Report Q4:** The RS created in Step 7 is adopted by the Deployment — it becomes the
 > active RS under the Deployment's control. K8s matches the RS selector to the Deployment
 > selector and sets an ownerReference on the RS.
-
----
-
-## Step 8 — Deploy Services
-
-```bash
-kubectl apply -f 05-services/
-kubectl get services -A
-kubectl get endpoints mysql-svc -n mysql-ns
-```
 
 ---
 
@@ -169,6 +159,8 @@ kubectl get endpoints mysql-svc -n mysql-ns
 
 ```bash
 kubectl get pods -A
+kubectl get services -A
+kubectl get endpoints mysql-svc -n mysql-ns
 curl localhost:30000
 ```
 
