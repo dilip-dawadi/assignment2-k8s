@@ -166,7 +166,6 @@ curl localhost:30000
 
 > For browser access: open `http://<EC2-public-IP>:30000` in browser.
 > Make sure port 30000 is open in the EC2 Security Group inbound rules.
-
 > **Report Q7:** Web uses NodePort so it is externally reachable from the internet/browser.
 > MySQL uses ClusterIP because it should only be reachable from within the cluster —
 > exposing a database externally would be a security risk.
