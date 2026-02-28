@@ -85,7 +85,7 @@ kubectl get secret ecr-secret -n mysql-ns
 > Always create Services before Pods.
 
 ```bash
-kubectl apply -f 05-services/
+kubectl apply -f 02-services/
 kubectl get services -A
 ```
 
@@ -94,7 +94,7 @@ kubectl get services -A
 ## Step 6 — Deploy Pods
 
 ```bash
-kubectl apply -f 02-pods/
+kubectl apply -f 03-pods/
 kubectl get pods -A -w
 # Wait until BOTH mysql-pod and web-pod show Running, then Ctrl+C
 ```
@@ -123,7 +123,7 @@ kill %1
 ## Step 7 — Deploy ReplicaSets
 
 ```bash
-kubectl apply -f 03-replicasets/
+kubectl apply -f 04-replicasets/
 kubectl get pods -A -w
 # Wait until all RS pods are Running, then Ctrl+C
 
@@ -139,7 +139,7 @@ kubectl get replicasets -A
 ## Step 8 — Deploy Deployments
 
 ```bash
-kubectl apply -f 04-deployments/
+kubectl apply -f 05-deployments/
 kubectl get pods -A -w
 # NOTE: The standalone RS pods will show Terminating — this is expected.
 # The Deployment creates its own RS with the same selector and takes ownership.
